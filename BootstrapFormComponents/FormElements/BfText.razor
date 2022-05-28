@@ -1,8 +1,42 @@
 ﻿@inherits MinMaxBaseInput
 
 <div class="mb-3">
-    <LabelHelper LabelText="@DisplayName" Required="Required" />
-    <input type="text" @bind-value="CurrentValue" @attributes="AdditionalAttributes" maxlength="@MaxLength" min="@MinLength" required="@Required" class="form-control @CssClass" />
+    @if (ShowLabel)
+    {
+        <LabelHelper
+            InputId="@ElementId"
+            LabelText="@DisplayName"
+            Required="Required" />
+    }
+
+    <input 
+        type="text"
+        @bind-value="CurrentValue"
+        @attributes="AdditionalAttributes"
+        aria-disabled="@disabled"
+        aria-readonly="@readOnly"
+        aria-required="@Required"
+        class="form-control @CssClass"
+        disabled="@disabled"
+        id="@ElementId"
+        maxlength="@MaxLength"
+        min="@MinLength"
+        placeholder="@Placeholder"
+        readonly="@readOnly"
+        required="@Required"
+        />
+
+    @if(ValidationFor != null)
+    {
+        <div class="form-control-validation">
+            <ValidationMessage For="@ValidationFor" />
+        </div>
+    }
+
+    @if(HelpText != null)
+    {
+        <div class="form-text ms-3">@HelpText</div>
+    }
 </div>
 
 @code {

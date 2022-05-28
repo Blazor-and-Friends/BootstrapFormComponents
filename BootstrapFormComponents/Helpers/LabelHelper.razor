@@ -1,4 +1,4 @@
-﻿<label class="fw-bold">
+﻿<label class="fw-bold" for="@InputId">
     @LabelText
     @if (Required)
     {
@@ -7,6 +7,8 @@
 </label>
 
 @code{
+
+    [EditorRequired, Parameter] public string InputId { get; set; }
     [EditorRequired, Parameter] public string LabelText { get; set; }
     [Parameter] public bool Required { get; set; }
 }

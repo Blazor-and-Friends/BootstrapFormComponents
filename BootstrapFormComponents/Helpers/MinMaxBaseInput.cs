@@ -2,7 +2,7 @@
 
 namespace BootstrapFormComponents.Helpers;
 
-public abstract class MinMaxBaseInput : BfBaseInput<string>
+public abstract class MinMaxBaseInput : SelectTextOnFocusBaseInput<string>
 {
     [Parameter] public int MaxLength { get; set; } = int.MaxValue;
 
