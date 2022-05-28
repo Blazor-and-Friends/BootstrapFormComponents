@@ -1,0 +1,12 @@
+﻿<label class="fw-bold">
+    @LabelText
+    @if (Required)
+    {
+        <span class="text-danger">*</span>
+    }
+</label>
+
+@code{
+    [EditorRequired, Parameter] public string LabelText { get; set; }
+    [Parameter] public bool Required { get; set; }
+}

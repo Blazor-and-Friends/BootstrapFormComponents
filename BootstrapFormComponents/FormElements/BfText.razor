@@ -1,0 +1,15 @@
+﻿@inherits MinMaxBaseInput
+
+<div class="mb-3">
+    <LabelHelper LabelText="@DisplayName" Required="Required" />
+    <input type="text" @bind-value="CurrentValue" @attributes="AdditionalAttributes" maxlength="@MaxLength" min="@MinLength" required="@Required" class="form-control @CssClass" />
+</div>
+
+@code {
+    protected override bool TryParseValueFromString(string value, out string result, out string validationErrorMessage)
+    {
+        result = value;
+        validationErrorMessage = null;
+        return true;
+    }
+}
