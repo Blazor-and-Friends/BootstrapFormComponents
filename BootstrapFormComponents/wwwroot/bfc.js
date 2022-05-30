@@ -2,11 +2,19 @@
 
     autoFocusFirstInput() {
         let firstInputEl = document.querySelector('input');
-        if (firstInputEl) firstInputEl.focus();
-        else {
-            firstInputEl = document.querySelector('textarea');
-            if (firstInputEl) firstInputEl.focus();
+        if (firstInputEl) {
+            firstInputEl.focus();
+            return;
         }
+
+        firstInputEl = document.querySelector('textarea');
+        if (firstInputEl) {
+            firstInputEl.focus();
+            return;
+        }
+
+        firstInputEl = document.querySelector('select');
+        if (firstInputEl) firstInputEl.focus();
     },
 
     scrollToFormTop: function () {

@@ -1,4 +1,4 @@
-﻿<label class="fw-bold" for="@InputId">
+﻿<label class="fw-bold @visuallyHiddenCss" for="@InputId">
     @LabelText
     @if (Required)
     {
@@ -7,8 +7,16 @@
 </label>
 
 @code{
-
+    [EditorRequired, Parameter] public bool HideLabel { get; set; }
     [EditorRequired, Parameter] public string InputId { get; set; }
     [EditorRequired, Parameter] public string LabelText { get; set; }
     [Parameter] public bool Required { get; set; }
+
+    string visuallyHiddenCss = "";
+
+    protected override void OnInitialized()
+    {
+        if (HideLabel) visuallyHiddenCss = "visually-hidden";
+        base.OnInitialized();
+    }
 }

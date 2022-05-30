@@ -1,13 +1,11 @@
 ﻿@inherits MinMaxBaseInput
 
 <div class="mb-3">
-    @if (ShowLabel)
-    {
-        <LabelHelper
-            InputId="@ElementId"
-            LabelText="@DisplayName"
-            Required="Required" />
-    }
+    <LabelHelper
+        HideLabel="HideLabel"
+        InputId="@ElementId"
+        LabelText="@DisplayName"
+        Required="Required" />
 
     <input 
         type="text"
