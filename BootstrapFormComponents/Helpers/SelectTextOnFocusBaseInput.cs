@@ -21,7 +21,7 @@ namespace BootstrapFormComponents.Helpers
         {
             await base.OnAfterRenderAsync(firstRender);
 
-            if (firstRender)
+            if (firstRender && SelectAllTextOnFocus)
             {
                 await Js.InvokeVoidAsync("bfc.setSelectAll", ElementId);
             }

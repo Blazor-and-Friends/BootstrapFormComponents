@@ -1,16 +1,17 @@
-﻿@inherits MinMaxBaseInput
+﻿@inherits MinLengthMaxLengthBaseInput
 
 <div class="mb-3">
     <LabelHelper
         HideLabel="HideLabel"
         InputId="@ElementId"
         LabelText="@DisplayName"
-        Required="Required" />
+        Required="Required"
+        Title="@Title"/>
 
     <input 
         type="text"
-        @bind-value="CurrentValue"
         @attributes="AdditionalAttributes"
+        @bind-value="CurrentValue"
         aria-disabled="@disabled"
         aria-readonly="@readOnly"
         aria-required="@Required"
@@ -22,6 +23,7 @@
         placeholder="@Placeholder"
         readonly="@readOnly"
         required="@Required"
+        title="@Title"
         />
 
     @if(ValidationFor != null)

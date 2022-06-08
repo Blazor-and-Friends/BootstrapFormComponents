@@ -8,11 +8,11 @@ using System.Threading.Tasks;
 
 namespace BootstrapFormComponents.FormElements;
 
-public class BrowserServices : ComponentBase
+public class BfBrowserServices : ComponentBase
 {
     public IJSRuntime Js { get; set; }
 
-    public BrowserServices(IJSRuntime js)
+    public BfBrowserServices(IJSRuntime js)
     {
         Js = js;
     }

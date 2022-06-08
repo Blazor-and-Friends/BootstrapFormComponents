@@ -1,0 +1,19 @@
+﻿@using Microsoft.AspNetCore.Components.Forms
+
+<EditForm Model="Model" OnInvalidSubmit="OnInvalidSubmit" OnValidSubmit="OnValidSubmit" novalidate>
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+    @ChildContent
+</EditForm>
+
+@code{
+    //This displays the ChildContent as expected, validation works, but the Model does not get updated
+    [EditorRequired, Parameter] public RenderFragment ChildContent { get; set; }
+    
+    // When I use this, I get a .ToString(), i.e.
+    // Microsoft.AspNetCore.Components.RenderFragment`1[Microsoft.AspNetCore.Components.Forms.EditContext]
+    //[EditorRequired, Parameter] public RenderFragment<EditContext> ChildContent { get; set; }
+    [EditorRequired, Parameter] public Object Model { get; set; }
+    [EditorRequired, Parameter] public EventCallback OnInvalidSubmit { get; set; }
+    [EditorRequired, Parameter] public EventCallback OnValidSubmit { get; set; }
+}

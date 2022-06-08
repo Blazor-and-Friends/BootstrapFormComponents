@@ -23,6 +23,11 @@ public abstract class BfBaseInput<T> : InputBase<T>
     [Parameter] public string HelpText { get; set; }
 
     /// <summary>
+    /// Optional. Method to call when the input component's value changes.
+    /// </summary>
+    [Parameter] public EventCallback<T> OnChange { get; set; }
+
+    /// <summary>
     /// Optional. Default is "Enter {DisplayName.ToLower()} here..."
     /// </summary>
     [Parameter] public string Placeholder { get; set; }
@@ -37,6 +42,11 @@ public abstract class BfBaseInput<T> : InputBase<T>
     /// </summary>
     [Parameter] public bool HideLabel { get; set; }
 
+    [Parameter] public string Title { get; set; }
+
+    /// <summary>
+    /// Optional. If set, adds a ValidationMessage component to the input component.
+    /// </summary>
     [Parameter] public Expression<Func<T>> ValidationFor { get; set; }
 
     protected bool disabled;
@@ -59,5 +69,16 @@ public abstract class BfBaseInput<T> : InputBase<T>
         }
 
         base.OnInitialized();
+    }
+
+    protected override void OnParametersSet()
+    {
+        base.OnParametersSet();
+        ValueChanged = OnChange;
+        if (Required)
+        {
+            if (Title == null) Title = "Required";
+            else Title = "Required. " + Title;
+        }
     }
 }
