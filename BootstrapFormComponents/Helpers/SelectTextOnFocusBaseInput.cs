@@ -19,12 +19,11 @@ namespace BootstrapFormComponents.Helpers
 
         protected override async Task OnAfterRenderAsync(bool firstRender)
         {
-            await base.OnAfterRenderAsync(firstRender);
-
             if (firstRender && SelectAllTextOnFocus)
             {
                 await Js.InvokeVoidAsync("bfc.setSelectAll", ElementId);
             }
+            await base.OnAfterRenderAsync(firstRender);
         }
     }
 }

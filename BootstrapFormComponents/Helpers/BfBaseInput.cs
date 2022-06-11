@@ -23,7 +23,7 @@ public abstract class BfBaseInput<T> : InputBase<T>
     [Parameter] public string HelpText { get; set; }
 
     /// <summary>
-    /// Optional. Method to call when the input component's value changes.
+    /// Optional. Method to call when the input component's value changes. If set, you must manually update the field in your callback.
     /// </summary>
     [Parameter] public EventCallback<T> OnChange { get; set; }
 
@@ -73,12 +73,12 @@ public abstract class BfBaseInput<T> : InputBase<T>
 
     protected override void OnParametersSet()
     {
-        base.OnParametersSet();
-        ValueChanged = OnChange;
+        if(OnChange.HasDelegate) ValueChanged = OnChange;
         if (Required)
         {
             if (Title == null) Title = "Required";
             else Title = "Required. " + Title;
         }
+        base.OnParametersSet();
     }
 }

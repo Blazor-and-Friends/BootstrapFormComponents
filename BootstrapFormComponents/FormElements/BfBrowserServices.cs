@@ -17,8 +17,8 @@ public class BfBrowserServices : ComponentBase
         Js = js;
     }
 
-    public async Task ScrollToFormTop()
+    public async Task ScrollToFormTop(string formElementId)
     {
-        await Js.InvokeVoidAsync("bfc.scrollToFormTop");
+        await Js.InvokeVoidAsync("bfc.scrollToFormTop", formElementId);
     }
 }

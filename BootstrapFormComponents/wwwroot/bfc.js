@@ -17,8 +17,8 @@
         if (firstInputEl) firstInputEl.focus();
     },
 
-    scrollToFormTop: function () {
-        let formEl = document.querySelector('form');
+    scrollToFormTop: function (formId) {
+        let formEl = document.querySelector('#' + formId);
 
         if (formEl) {
             formEl.scrollIntoView();
