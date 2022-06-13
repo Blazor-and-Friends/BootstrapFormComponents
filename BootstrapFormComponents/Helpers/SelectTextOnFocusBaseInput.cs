@@ -8,14 +8,14 @@ using System.Threading.Tasks;
 
 namespace BootstrapFormComponents.Helpers
 {
-    public abstract class SelectTextOnFocusBaseInput<T> : BfBaseInput<string>
+    public abstract class SelectTextOnFocusBaseInput<T> : BfBaseInput<T>
     {
         [Inject] public IJSRuntime Js { get; set; }
 
         /// <summary>
         /// If true, all the text in the input field gets selected on focus
         /// </summary>
-        [Parameter] public bool SelectAllTextOnFocus { get; set; }
+        [Parameter] public virtual bool SelectAllTextOnFocus { get; set; }
 
         protected override async Task OnAfterRenderAsync(bool firstRender)
         {

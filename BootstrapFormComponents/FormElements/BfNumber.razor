@@ -1,0 +1,120 @@
+﻿@typeparam T
+@inherits SelectTextOnFocusBaseInput<T>
+
+<div class="mb-3">
+    <LabelHelper
+        HideLabel="HideLabel"
+        InputId="@ElementId"
+        LabelText="@DisplayName"
+        Required="Required"
+        Title="@Title"/>
+
+    <input 
+        type="number"
+        @attributes="AdditionalAttributes"
+        @bind-value="CurrentValue"
+        aria-disabled="@disabled"
+        aria-readonly="@readOnly"
+        aria-required="@Required"
+        class="form-control @CssClass"
+        disabled="@disabled"
+        id="@ElementId"
+        max="@Max"
+        min="@Min"
+        placeholder="@Placeholder"
+        readonly="@readOnly"
+        required="@Required"
+        step="@Step"
+        title="@Title"
+        />
+
+    @if(ValidationFor != null)
+    {
+        <div class="form-control-validation">
+            <ValidationMessage For="@ValidationFor" />
+        </div>
+    }
+
+    @if(HelpText != null)
+    {
+        <div class="form-text ms-3">@HelpText</div>
+    }
+</div>
+
+@code {
+    /// <summary>
+    /// Optional. Sets the min attribute on the input element. Default is decimal.MaxValue.
+    /// </summary>
+    [Parameter] public decimal Max { get; set; } = decimal.MaxValue;
+
+    /// <summary>
+    /// Optional. Sets the min attribute on the input element. Default is decimal.MinValue.
+    /// </summary>
+    [Parameter] public decimal Min { get; set; } = decimal.MinValue;
+
+    /// <summary>
+    /// If true, all the text in the input field gets selected on focus. Default is true.
+    /// </summary>
+    [Parameter] public override bool SelectAllTextOnFocus { get; set; } = true;
+
+    /// <summary>
+    /// Optional. Sets the step attribute on the input element. Default is 1.
+    /// </summary>
+    [Parameter] public decimal Step { get; set; } = 1;
+
+    protected override bool TryParseValueFromString(string value, out T result, out string validationErrorMessage)
+    {
+        var targetType = Nullable.GetUnderlyingType(typeof(T)) ?? typeof(T);
+
+        bool successful = false;
+
+        if(targetType == typeof(decimal) && decimal.TryParse(value, out var d))
+        {
+            result = (T)(object)d;
+            successful = true;
+
+        }
+        else if(targetType == typeof(int) && int.TryParse(value, out var i))
+        {
+            result = (T)(object)i;
+            successful = true;
+        }
+        else if(targetType == typeof(byte) && byte.TryParse(value, out var b))
+        {
+            result = (T)(object)b;
+            successful = true;
+        }
+        else if(targetType == typeof(double) && double.TryParse(value, out var dou))
+        {
+            result = (T)(object)dou;
+            successful = true;
+        }
+        else if(targetType == typeof(float) && float.TryParse(value, out var f))
+        {
+            result = (T)(object)f;
+            successful = true;
+        }
+        else if(targetType == typeof(long) && long.TryParse(value, out var l))
+        {
+            result = (T)(object)l;
+            successful = true;
+        }
+        else if(targetType == typeof(short) && short.TryParse(value, out var s))
+        {
+            result = (T)(object)s;
+            successful = true;
+        }
+        else
+        {
+            result = default;
+        }
+
+        if (successful)
+        {
+            validationErrorMessage = null;
+            return true;
+        }
+
+        throw new InvalidCastException($"{GetType()} does not support {typeof(T)}");
+    }
+}

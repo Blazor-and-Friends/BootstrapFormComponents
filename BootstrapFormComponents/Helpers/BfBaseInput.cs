@@ -35,7 +35,7 @@ public abstract class BfBaseInput<T> : InputBase<T>
     /// <summary>
     /// If true, a "required" attribute is placed on the input element and the associated label will have a red asterisk indicating this is a required field
     /// </summary>
-    [Parameter] public bool Required { get; set; }
+    [Parameter] public virtual bool Required { get; set; }
 
     /// <summary>
     /// Optional. If true, the input's associated label is visually hidden.

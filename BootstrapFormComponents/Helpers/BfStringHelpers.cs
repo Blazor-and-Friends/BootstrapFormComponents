@@ -4,10 +4,10 @@ namespace BootstrapFormComponents.Helpers;
 public static class BfStringHelpers
 {
     static int alphaLength_;
-    static string alphaNumerics_ = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz0123456789";
+    static string alphaNumerics_ = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz";
     static Random random_;
     static StringBuilder sb_;
-    public static string GenerateRandomString(this string s, int length = 5)
+    public static string GenerateRandomString(this string s, int length = 6)
     {
         if (random_ == null) random_ = new Random();
         if (sb_ == null) sb_ = new StringBuilder();
