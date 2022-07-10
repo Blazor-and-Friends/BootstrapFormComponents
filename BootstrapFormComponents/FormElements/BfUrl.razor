@@ -1,0 +1,85 @@
+﻿@inherits MinLengthMaxLengthBaseInput
+
+<div class="mb-3">
+    <LabelHelper
+        HideLabel="HideLabel"
+        InputId="@ElementId"
+        LabelText="@DisplayName"
+        Required="Required"
+        Title="@Title"/>
+
+    <input 
+        type="url"
+        @attributes="AdditionalAttributes"
+        @bind-value="CurrentValue"
+        aria-disabled="@disabled"
+        aria-readonly="@readOnly"
+        aria-required="@Required"
+        class="form-control @CssClass"
+        disabled="@disabled"
+        id="@ElementId"
+        maxlength="@MaxLength"
+        min="@MinLength"
+        placeholder="@Placeholder"
+        readonly="@readOnly"
+        required="@Required"
+        title="@Title"
+        />
+
+    @if(ValidationFor != null)
+    {
+        <div class="form-control-validation">
+            <ValidationMessage For="@ValidationFor" />
+        </div>
+    }
+
+    @if(HelpText != null)
+    {
+        <div class="form-text ms-3">@HelpText</div>
+        <div>
+            val: @val
+            <br>
+            res: @res
+            <br>
+
+            currVal @CurrentValue
+            <br>
+            vasAsStr: @CurrentValueAsString
+        </div>
+    }
+</div>
+
+@code {
+
+    [Parameter] public bool ShowSchemeDropdown { get; set; }
+
+    string val;
+    string res;
+
+
+    protected override bool TryParseValueFromString(string value, out string result, out string validationErrorMessage)
+    {
+        string[] schemes = { "http://", "https://", "ftp://", "ftps://", "rtsp://" };
+
+        bool valid = false;
+
+        foreach (var item in schemes)
+        {
+            if (value.StartsWith(item))
+            {
+                valid = true;
+                break;
+            }
+        }
+
+        if (!valid)
+        {
+            value = val = "http://" + value;
+            Console.WriteLine("!valid");
+        }
+
+        result = res = value;
+        validationErrorMessage = null;
+        return true;
+    }
+}

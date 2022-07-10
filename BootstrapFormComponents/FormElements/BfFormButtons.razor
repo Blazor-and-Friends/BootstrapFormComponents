@@ -1,0 +1,29 @@
+﻿<div class="d-flex flex-wrap justify-content-between">
+    <input type="submit" value="@SubmitButtonText" class="btn btn-outline-success" />
+    @if (ResetButtonCallback.HasDelegate)
+        {
+            <button type="button" @onclick="ResetButtonCallback" class="btn btn-outline-warning">Reset</button>
+        }
+        @if (CancelButtonCallback.HasDelegate)
+        {
+            <button type="button" @onclick="CancelButtonCallback" class="btn btn-outline-danger">Cancel</button>
+        }
+</div>
+
+@code{
+
+    /// <summary>
+    /// Optional. If supplied, displays a cancel button that invokes this EventCallback
+    /// </summary>
+    [Parameter] public EventCallback CancelButtonCallback { get; set; }
+
+    /// <summary>
+    /// Optional. If supplied, displays a reset button that invokes this EventCallback
+    /// </summary>
+    [Parameter] public EventCallback ResetButtonCallback { get; set; }
+
+    /// <summary>
+    /// Optional. The text on/in the submit button. Default value is "Submit"
+    /// </summary>
+    [Parameter] public string SubmitButtonText { get; set; } = "Submit";
+}

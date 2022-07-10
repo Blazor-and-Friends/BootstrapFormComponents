@@ -64,6 +64,8 @@
 
     protected override bool TryParseValueFromString(string value, out T result, out string validationErrorMessage)
     {
+        throw new NotImplementedException();
+
         var targetType = Nullable.GetUnderlyingType(typeof(T)) ?? typeof(T);
 
         bool successful = false;
@@ -74,11 +76,11 @@
             successful = true;
 
         }
-        else if(targetType == typeof(int) && int.TryParse(value, out var i))
-        {
-            result = (T)(object)i;
-            successful = true;
-        }
+        //else if(targetType == typeof(int) && int.TryParse(value, out var i))
+        //{
+        //    result = (T)(object)i;
+        //    successful = true;
+        //}
         else if(targetType == typeof(byte) && byte.TryParse(value, out var b))
         {
             result = (T)(object)b;
@@ -115,6 +117,9 @@
             return true;
         }
 
-        throw new InvalidCastException($"{GetType()} does not support {typeof(T)}");
+        validationErrorMessage = "wtf over";
+        return false;
+
+        //throw new InvalidCastException($"{GetType()} does not support {typeof(T)}");
     }
 }

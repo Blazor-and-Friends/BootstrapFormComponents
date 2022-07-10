@@ -3,21 +3,48 @@
 <EditForm Model="Model" OnInvalidSubmit="invalidSubmit" OnValidSubmit="OnValidSubmit" id="@id" 
 novalidate>
     <ObjectGraphDataAnnotationsValidator />
-    <ValidationSummary />
+    @if (ShowValidationSummary && formIsInvalid)
+    {
+        <h2 class="h3 text-danger">@ValidationSummaryHeading</h2>
+        <ValidationSummary />
+    }
 
     @ChildContent
+
 </EditForm>
 
 @code{
-    [EditorRequired, Parameter] public RenderFragment ChildContent { get; set; } 
+    [EditorRequired, Parameter] public RenderFragment ChildContent { get; set; }
+
+    /// <summary>
+    /// The top level model object for this form.
+    /// </summary>
     [EditorRequired, Parameter] public Object Model { get; set; }
+
+    /// <summary>
+    /// A callback that will be invoked
+    /// </summary>
     [EditorRequired, Parameter] public EventCallback OnInvalidSubmit { get; set; }
+
     [EditorRequired, Parameter] public EventCallback OnValidSubmit { get; set; }
+
+    /// <summary>
+    /// If true, a ValidationSummary will be shown at the top of the form. Default is false.
+    /// </summary>
+    [Parameter] public bool ShowValidationSummary { get; set; }
+
+    /// <summary>
+    /// Optional. If ShowValidationSummary is set to true, this will be shown at the top of the ValidationSummary. Default is "Please fix the following issues:"
+    /// </summary>
+    [Parameter] public string ValidationSummaryHeading { get; set; } = "Please fix the following issues:";
 
     string id = "".GenerateRandomString();
 
+    bool formIsInvalid;
+
     async Task invalidSubmit()
     {
+        formIsInvalid = true;
         await browserServices.ScrollToFormTop(id);
         await OnInvalidSubmit.InvokeAsync();
     }
